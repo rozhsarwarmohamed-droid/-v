@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Poem Circus - Grade 5 Lesson 1.5</title><style>
+:root{--p:#3b1d63;--g:#f2b632;--c:#ee5f4f;--t:#0f8f88;--cr:#fbf0d6;--ink:#2a1840}
+*{box-sizing:border-box;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit}
+html{height:100dvh}
+body{margin:0;height:100%;display:flex;flex-direction:column;background:var(--cr) radial-gradient(#ecd49b 1.5px,transparent 2px) 0 0/20px 20px;color:var(--ink);font:22px/1.45 "Baloo 2",Nunito,"Segoe UI",system-ui,sans-serif}
+header{flex:none;background:var(--p);color:var(--cr);display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:8px 16px;border-bottom:4px solid var(--g)}
+.tent{flex:none;height:14px;background:repeating-linear-gradient(90deg,var(--c) 0 36px,var(--cr) 36px 72px)}
+h1{margin:0;font:800 32px/1.1 Rockwell,"Roboto Slab",Georgia,serif;color:var(--g)}
+h1 small{display:block;font:600 18px Nunito,sans-serif;color:var(--cr)}
+nav{display:flex;flex:1;gap:8px;justify-content:center;flex-wrap:wrap}
+.tk{min-height:60px;padding:4px 14px;border:3px dashed var(--g);border-radius:12px;background:none;color:var(--cr);font-size:20px;font-weight:800;line-height:1.1}
+.tk.on{background:var(--g);color:var(--p);border-style:solid}
+.tk small{display:block;font-size:15px;font-weight:600}
+.ar{min-width:64px;min-height:60px;font-size:28px;border:0;border-radius:12px;background:var(--t);color:#fff}
+main{flex:1;min-height:0;overflow-y:scroll;overscroll-behavior-y:contain;padding:18px 28px 150px}
+h2{margin:0 0 12px;font:800 36px/1.15 Rockwell,"Roboto Slab",Georgia,serif;color:var(--p)}
+h2 small{font:600 20px Nunito,sans-serif;color:var(--t)}
+.card{background:#fffaf0;border:6px double var(--g);outline:3px solid var(--p);outline-offset:-15px;border-radius:18px;padding:22px 28px;margin:0 0 18px}
+.big{font-size:26px;font-weight:700}
+.fr{background:#fff0bf;border-left:8px solid var(--c);border-radius:8px;padding:10px 18px;font-size:24px}
+.btn{min-height:60px;padding:8px 24px;margin:4px 6px 4px 0;border:0;border-radius:14px;background:var(--c);color:#fff;font-size:22px;font-weight:800}
+.btn:disabled{opacity:.55}.btn.ok{background:var(--t);opacity:1}.btn.no{background:#9a9a9a}
+.opts{display:grid;gap:12px}.opts .btn{text-align:left;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.w{position:relative;min-height:130px;padding:8px;border:3px solid var(--p);border-radius:16px;background:#fff;color:var(--p);font-size:22px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;word-break:break-all}
+.w b{font-size:46px;line-height:1.1}
+.w.A{border-bottom:12px solid var(--c)}.w.B{border-bottom:12px solid var(--t)}
+.w.seen::after{content:"✔";position:absolute;top:2px;right:10px;color:var(--t);font-size:26px}
+.em{line-height:1.1;word-break:break-all}
+#sp{position:fixed;inset:0;background:#2a1840d9;display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+#sp.on{display:flex}
+#sp .card{width:100%;max-width:760px;max-height:92dvh;overflow-y:auto;text-align:center;margin:0}
+.poem{white-space:pre-wrap;font:italic 26px/1.75 Georgia,serif}
+.hl{background:var(--g);color:var(--p);border-radius:6px;padding:0 5px;font-style:normal;font-weight:800}
+textarea{width:100%;min-height:220px;font:20px/1.5 Georgia,serif;padding:10px;border:3px solid var(--p);border-radius:10px}
+</style></head><body>
+<header><h1>The Poem Circus<small>Global English 5, Lesson 1.5 My favourite people</small></h1><nav></nav><button class="ar" onclick="go(st-1)">◀</button><button class="ar" onclick="go(st+1)">▶</button></header><div class="tent"></div><main></main><div id="sp"></div>
+<script>
+const V=[
+["superlatively","🌟💪","extremely; more than all the others","The giant is superlatively tall.","A"],
+["dozen","🥚".repeat(12),"a group of 12","I bought a dozen eggs.","A"],
+["hoist","🏋️","lift something heavy up high","Workers hoist the flag up the pole.","A"],
+["enormous","🐘","very, very big","An elephant is enormous.","A"],
+["bulge","💪","get bigger and stick out","His muscles bulge when he lifts a box.","A"],
+["top to toe","🧍↕️","from head to feet, all over","I was wet from top to toe.","A"],
+["ripple to and fro","🌊","move like small waves, back and forth","The water ripples to and fro.","A"],
+["carry","🎒","hold something and take it to another place","I carry my bag to school.","A","carr(?:y|ies|ied)"],
+["impressive","🤩","so good that people say “Wow!”","Her drawing is impressive.","B"],
+["juggle","🤹","keep things moving in the air with your hands","The clown can juggle three balls.","B"],
+["mambo","🕺","a fast Latin dance","They dance the mambo at the party.","B"],
+["tap (dance)","👞","a dance where your shoes click on the floor","Tap dancers wear special shoes.","B"],
+["waltz","💃","a slow, smooth dance: one-two-three","Mum and Dad waltz together.","B"],
+["airborne somersaults","🤸","flips in the air, head over heels","The gymnast does airborne somersaults.","B"],
+["chess","♟️","a board game with a king and a queen","My grandpa plays chess with me.","B"],
+["skill","🎯","something you do well because you practise","Drawing is a useful skill.","B"],
+["possess","🤲","to have or to own","She possesses a beautiful voice.","B"],
+["racing","🏎️","trying to go faster than the others","He loves racing cars.","B"],
+["masterful","👑","done with great skill, like a master","The pianist gave a masterful show.","B"],
+["bulls","🐂","big, strong male cows","Bulls have strong horns.","B"],
+["wrestle","🤼","hold and push someone to the ground, as a sport","Two boys wrestle on the mat.","B"],
+["champion","🏆","the winner, number one","She is the chess champion of our school.","B"],
+["comb","💇","a tool to make hair neat; to tidy hair","I comb my hair every morning.","B"],
+["expert","🎓","a person who is very, very good at something","My uncle is an expert cook.","B"]];
+const $=s=>document.querySelector(s),M=$('main'),S=['Warm-up','Word Circus','Spot the Poem','Read & Tap','Final Bow'],T=[2,4,2,4,3];
+let st=0,seen=new Set(),flt='all',cur=0,tab='A',ed=0,ti;
+const rnd=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const ld=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const key=v=>v[5]||v[0].replace(/ \(.*\)/,'');
+const idx=m=>V.findIndex(v=>new RegExp('^(?:'+key(v)+')(?:s|es|ed)?$','i').test(m));
+function nav(){$('nav').innerHTML=S.map((s,i)=>`<button class="tk ${i==st?'on':''}" onclick="go(${i})">${i+1}. ${s}<small>${T[i]} min</small></button>`).join('')}
+function go(n){st=Math.max(0,Math.min(4,n));nav();M.scrollTop=0;[s1,s2,s3,s4,s5][st]()}
+function timer(){clearInterval(ti);let n=60;const b=$('#tm');b.textContent='⏱ 60';ti=setInterval(()=>{b.textContent=--n>0?'⏱ '+n:'🔔 Time!';if(n<=0)clearInterval(ti)},1000)}
+function s1(){M.innerHTML=`<h2>🎤 Who inspires you?</h2><div class="card"><p class="big">Talk with a partner: Who inspires you? What is special about them?</p><p>🌟 <i>inspire</i> = to make you want to be better.</p><p class="fr">“My ___ inspires me because he/she is ___.”<br>“He/She can ___ very well.”<br>“What I like best is ___.”</p><button class="btn" id="tm" onclick="timer()">⏱ Start 60 seconds</button></div><p class="big">Today we enjoy two poems about special people!</p><button class="btn" style="background:var(--p)" onclick="go(1)">Meet the words ▶</button>`}
+function s2(){const L=V.map((v,i)=>i).filter(i=>flt=='all'||V[i][4]==flt);
+M.innerHTML=`<h2>🎪 Word Circus <small>Tap a card (seen ${seen.size}/24)</small></h2><p>${[['all','All 24 words'],['A','🐘 Poem A'],['B','🎸 Poem B']].map(f=>`<button class="btn" style="background:${flt==f[0]?'var(--p)':'var(--t)'}" onclick="flt='${f[0]}';s2()">${f[1]}</button>`).join('')}</p><div class="grid">${L.map(i=>`<button class="w ${V[i][4]} ${seen.has(i)?'seen':''}" onclick="spot(${i})"><b style="font-size:${V[i][1].length>8?22:46}px">${V[i][1]}</b>${V[i][0]}</button>`).join('')}</div>`}
+function spot(i){cur=i;seen.add(i);const v=V[i];$('#sp').innerHTML=`<div class="card"><div class="em" style="font-size:${v[1].length>8?44:110}px">${v[1]}</div><h2>${v[0]}</h2><p class="big">${v[2]}</p><p>💬 <i>${v[3]}</i></p><button class="btn" onclick="spot((cur+23)%24)">◀</button><button class="btn" style="background:var(--p)" onclick="closeSp()">✔ Got it</button><button class="btn" onclick="spot((cur+1)%24)">▶</button></div>`;$('#sp').classList.add('on')}
+function closeSp(){$('#sp').classList.remove('on');if(st==1){const y=M.scrollTop;s2();M.scrollTop=y}}
+$('#sp').onclick=e=>{if(e.target.id=='sp')closeSp()};
+function quiz(el,items,end){let i=0,s=0,f=0;(function nx(){if(i>=items.length){el.innerHTML=`<div class="card"><h2>⭐ ${s}/${items.length}</h2>${end}</div>`;return}
+const t=items[i];f=0;el.innerHTML=`<div class="card"><p class="big">${i+1}/${items.length}  ${t.q}</p>${t.b?`<div class="em" style="font-size:80px">${t.b}</div>`:''}<div class="opts">${t.o.map((o,k)=>`<button class="btn" data-k="${k}">${o}</button>`).join('')}</div></div>`;
+const bs=el.querySelectorAll('.opts button');bs.forEach(b=>b.onclick=()=>{if(+b.dataset.k==t.a){if(!f)s++;b.classList.add('ok');bs.forEach(x=>x.disabled=true);setTimeout(()=>{i++;nx()},900)}else{f=1;b.classList.add('no');b.disabled=true}})})()}
+function s3(){M.innerHTML=`<h2>🎟 Spot the Poem</h2><p class="big">Read both poems in your book, then tap the answers.</p><div id="q"></div>`;
+quiz($('#q'),[
+{q:'<b>Poem A</b> is about a man who lifts elephants. Which title?',b:'🐘💪',o:['Our teacher’s multi-talented (Kenn Nesbitt)','Super Samson Simpson (Jack Prelutsky)'],a:1},
+{q:'<b>Poem B</b> is about a teacher who can do everything! Which title?',b:'🎸🤹',o:['Our teacher’s multi-talented (Kenn Nesbitt)','Super Samson Simpson (Jack Prelutsky)'],a:0},
+{q:'How many elephants does Samson pick up at once?',o:['2','half a dozen (6)','a dozen (12)'],a:1},
+{q:'Who is stronger than Samson?',o:['His grandma 👵','His teacher','The elephants'],a:0},
+{q:'How many rings can the teacher juggle?',o:['2','12','20'],a:2},
+{q:'What do the children wish the teacher would learn?',o:['to swim 🏊','to comb his hair 💇','to play chess ♟️'],a:1}
+],`<p class="big">Great reading! Now see the words inside the poems.</p><button class="btn" onclick="go(3)">Read & Tap ▶</button>`)}
+function s4(){const t=ld('p'+tab);
+M.innerHTML=`<h2>📖 Read & Tap</h2><p>${['A','B'].map(x=>`<button class="btn" style="background:${tab==x?'var(--p)':'var(--t)'}" onclick="tab='${x}';ed=0;s4()">${x=='A'?'🐘 Poem A':'🎸 Poem B'}</button>`).join('')}</p>`+(t&&!ed?`<div class="card poem" id="pm"></div><p>Tap a <span class="hl">gold word</span> to see its picture.</p><button class="btn" style="background:var(--p)" onclick="ed=1;s4()">✏️ Change text</button>`:`<div class="card"><p>Teacher: paste the poems here, both at once (from “Poem A” to the end of Poem B) or one at a time. They stay saved on this device and the hard words light up.</p><textarea id="ta">${esc(t)}</textarea><br><button class="btn" onclick="save()">✔ Show poems</button></div>`);
+const p=$('#pm');if(p)p.innerHTML=esc(t).replace(new RegExp('\\b(?:'+V.map(key).join('|')+')(?:s|es|ed)?\\b','gi'),m=>`<b class="hl" onclick="spot(${idx(m)})">${m}</b>`)}
+const tidy=t=>/\n/.test(t.trim())?t.trim():t.replace(/_{3,}\s*/g,'________ ').replace(/\s+([.,!?;])/g,'$1').replace(/\s*\b\d{1,2}\b\s*/g,'\n').replace(/([.!?])(?=[A-Z])/g,'$1 ').replace(/([,.!?;])[ \t]+/g,'$1\n').replace(/\n+/g,'\n').trim();
+function save(){const t=$('#ta').value,m=t.match(/Poem\s*A\b([\s\S]*?)Poem\s*B\b([\s\S]*?)(?:##|$)/i);if(m){sv('pA',tidy(m[1]));sv('pB',tidy(m[2]))}else sv('p'+tab,tidy(t));ed=0;s4()}
+function s5(){const q=rnd(V.map((v,i)=>i)).slice(0,6).map(i=>{const o=rnd([i,...rnd(V.map((v,j)=>j).filter(j=>j!=i)).slice(0,2)]);return{q:`Which word means <i>“${V[i][2]}”</i>?`,b:V[i][1],o:o.map(j=>V[j][0]),a:o.indexOf(i)}});
+M.innerHTML=`<h2>🏆 Final Bow</h2><div id="q"></div>`;
+quiz($('#q'),q,`<p class="big">🎤 Your turn! Tell your partner about someone special:</p><p class="fr">“___ is an <b>expert</b> at ___.”<br>“He/She can ___ and ___ very well!”</p><button class="btn" onclick="s5()">🔁 Play again</button>`)}
+go(0);
+</script></body></html>
